@@ -49,7 +49,7 @@ Canonical square_subCountType :=
   Eval hnf in [subCountType of square].
 Canonical square_subFinType := Eval hnf in [subFinType of square].
 
-Definition mksquare i : square := Sub (i %% _) (ltn_mod i 4).
+Definition mksquare i : square := Sub (P:=fun x=>x < _) (i %% _) (ltn_mod i 4).
 Definition c0 := mksquare 0.
 Definition c1 := mksquare 1.
 Definition c2 := mksquare 2.
@@ -488,7 +488,7 @@ Canonical cube_subType := Eval hnf in [subType of cube].
 Canonical cube_subCountType := Eval hnf in [subCountType of cube].
 Canonical cube_subFinType := Eval hnf in [subFinType of cube].
 
-Definition mkFcube i : cube := Sub (i %% 6) (ltn_mod i 6).
+Definition mkFcube i : cube := Sub (P:=fun x=>x < _) (i %% 6) (ltn_mod i 6).
 Definition F0 := mkFcube 0.
 Definition F1 := mkFcube 1.
 Definition F2 := mkFcube 2.

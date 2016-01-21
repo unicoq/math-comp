@@ -4400,7 +4400,7 @@ Qed.
 
 Lemma prodf_seq_eq0 I r (P : pred I) (F : I -> R) :
   (\prod_(i <- r | P i) F i == 0) = has (fun i => P i && (F i == 0)) r.
-Proof. by rewrite (big_morph _ mulf_eq0 (oner_eq0 _)) big_has_cond. Qed.
+Proof. by rewrite (big_morph (eq_op^~ _) mulf_eq0 (oner_eq0 _)) big_has_cond. Qed.
 
 Lemma mulf_neq0 x y : x != 0 -> y != 0 -> x * y != 0.
 Proof. by move=> x0 y0; rewrite mulf_eq0; apply/norP. Qed.

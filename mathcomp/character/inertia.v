@@ -891,7 +891,7 @@ apply/bigcapsP=> i Pi; rewrite (bigcap_min i) //.
 by rewrite -inertia_bigdprodi ?subsetIr.
 Qed.
 
-Lemma inertia_bigdprod_irr Iphi (phi := fun i => 'chi_(Iphi i)) :
+Lemma inertia_bigdprod_irr Iphi (phi : forall i, 'CF(A i) := fun i => 'chi_(Iphi i)) :
   'I_L[cfBigdprod defG phi] = L :&: \bigcap_(i | P i) 'I_L[phi i].
 Proof.
 rewrite inertia_bigdprod // -[cfBigdprod _ _]cfIirrE ?irr1_neq0 //.

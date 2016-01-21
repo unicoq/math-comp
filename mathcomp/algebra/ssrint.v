@@ -427,7 +427,7 @@ by move: x y=> [] x [] y //=; rewrite (ltn_neqAle, leq_eqVlt) // eq_sym.
 Qed.
 
 Definition Mixin :=
-   NumMixin lez_norm_add ltz_add eq0_normz (in2W lez_total) normzM
+   NumMixin (norm_op:=fun x=>Posz (absz x)) lez_norm_add ltz_add eq0_normz (in2W lez_total) normzM
             lez_def ltz_def.
 
 End intOrdered.

@@ -814,7 +814,7 @@ have /all_sig[n_ FTA] z: {n | z \in sQ (z_ n)}.
     by rewrite adjoin_degreeE dimCn big_ord_recl big_ord1 mulr1 mulrC.
   pose p := Poly [:: - (ofQ t v ^+ 2); 0; - ofQ t u; 0; 1].
   have [|m lenm [x Rx px0]] := xRroot n p (ofQ t v).
-    rewrite /has_Rroot 2!unfold_in lead_coefE horner_coef0 -memRn Rv.
+    rewrite /has_Rroot -memRn Rv 2!unfold_in /= lead_coefE horner_coef0.
     rewrite (@PolyK _ 1) ?oner_eq0 //= !eqxx !rpred0 ?rpred1 ?rpredN //=.
     by rewrite !andbT rpredX -memRn.
   suffices [y Cy Dy2]: {y | y \in sQ (z_ m) & ofQ t w ^+ 2 == y ^+ 2}.

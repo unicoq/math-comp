@@ -1831,7 +1831,7 @@ Proof. exact: (big_ind _ _ (@ler_paddl 0)). Qed.
 Lemma ler_sum I (r : seq I) (P : pred I) (F G : I -> R) :
     (forall i, P i -> F i <= G i) ->
   \sum_(i <- r | P i) F i <= \sum_(i <- r | P i) G i.
-Proof. exact: (big_ind2 _ (lerr _) ler_add). Qed.
+Proof. exact: (big_ind2 (fun x y => x <= y) (lerr _) ler_add). Qed.
 
 Lemma psumr_eq0 (I : eqType) (r : seq I) (P : pred I) (F : I -> R) :
     (forall i, P i -> 0 <= F i) ->
@@ -1847,7 +1847,7 @@ Lemma psumr_eq0P (I : finType) (P : pred I) (F : I -> R) :
   (forall i, P i -> F i = 0).
 Proof.
 move=> F_ge0 /eqP; rewrite psumr_eq0 // -big_all big_andE => /forallP hF i Pi.
-by move: (hF i); rewrite implyTb Pi /= => /eqP.
+by move: (hF i); rewrite Pi implyTb => /eqP.
 Qed.
 
 (* mulr and ler/ltr *)
@@ -3096,7 +3096,7 @@ Lemma poly_disk_bound p b : {ub | forall x, `|x| <= b -> `|p.[x]| <= ub}.
 Proof.
 exists (\sum_(j < size p) `|p`_j| * b ^+ j) => x le_x_b.
 rewrite horner_coef (ler_trans (ler_norm_sum _ _ _)) ?ler_sum // => j _.
-rewrite normrM normrX ler_wpmul2l ?ler_expn2r ?unfold_in ?normr_ge0 //.
+rewrite normrM normrX ler_wpmul2l ?ler_expn2r ?unfold_in ?normr_ge0 //=.
 exact: ler_trans (normr_ge0 x) le_x_b.
 Qed.
 
