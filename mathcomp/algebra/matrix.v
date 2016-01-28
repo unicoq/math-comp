@@ -2816,8 +2816,8 @@ Variable F : fieldType.
 (*   - L a unipotent lower triangular matrix       *)
 (*   - U an upper triangular matrix                *)
 
-Fixpoint cormen_lup {n} :=
-  match n return let M := 'M[F]_n.+1 in M -> M * M * M with
+Fixpoint cormen_lup {n} : let M := 'M[F]_n.+1 in M -> M * M * M :=
+  match n with
   | 0 => fun A => (1, 1, A)
   | _.+1 => fun A =>
     let k := odflt 0 [pick k | A k 0 != 0] in

@@ -267,7 +267,7 @@ Local Notation n := n'.+1.
 Variable A : 'M[R]_n.
 Implicit Types p q : {poly R}.
 
-Definition horner_mx := horner_morph (fun a => scalar_mx_comm a A).
+Definition horner_mx := horner_morph (f:=@scalar_mx _ _) (fun a => scalar_mx_comm a A).
 Canonical horner_mx_additive := [additive of horner_mx].
 Canonical horner_mx_rmorphism := [rmorphism of horner_mx].
 
@@ -426,7 +426,7 @@ transitivity (\det (a%:M - A) == 0).
   by apply/eqP; rewrite -mul_mx_scalar eq_sym -subr_eq0 -mulmxBr Av_av.
 congr (_ == 0); rewrite horner_sum; apply: eq_bigr => s _.
 rewrite hornerM horner_exp !hornerE; congr (_ * _).
-rewrite (big_morph _ (fun p q => hornerM p q a) (hornerC 1 a)).
+rewrite (big_morph (fun p=>p.[a]) (fun p q => hornerM p q a) (hornerC 1 a)).
 by apply: eq_bigr => i _; rewrite !mxE !(hornerE, hornerMn).
 Qed.
 

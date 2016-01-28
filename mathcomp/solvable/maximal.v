@@ -733,7 +733,7 @@ have [p_pr _ _] := pgroup_pdiv pG ntG.
 have fM: {in 'Z(G) &, {morph expgn^~ p : x y / x * y}}.
   by move=> x y /setIP[_ /centP cxG] /setIP[/cxG cxy _]; apply: expgMn.
 rewrite abelemE //= center_abelian; apply/exponentP=> /= z Zz.
-apply: (@kerP _ _ _ (Morphism fM)) => //; apply: subsetP z Zz.
+apply: (@kerP _ _ _ (Morphism (mfun:=expgn^~ p) fM)) => //; apply: subsetP z Zz.
 rewrite -{1}defG' gen_subG; apply/subsetP=> _ /imset2P[x y Gx Gy ->].
 have Zxy: [~ x, y] \in 'Z(G) by rewrite -defG' mem_commg.
 have Zxp: x ^+ p \in 'Z(G).
@@ -1306,7 +1306,7 @@ apply/(Aut_sub_fullP (center_sub E)); rewrite /= defZ => g injg gZ.
 pose k := invm (injm_Zp_unitm z) (aut injg gZ).
 have fM: {in K &, {morph expgn^~ (val k): u v / u * v}}.
   by move=> u v Ku Kv; rewrite /= expgMn // /commute (centsP cKK).
-pose f := Morphism fM; have fK: f @* K = K.
+pose f := Morphism (mfun:=expgn^~ (val k)) fM; have fK: f @* K = K.
   apply/setP=> u; rewrite morphimEdom.
   apply/imsetP/idP=> [[v Kv ->] | Ku]; first exact: groupX.
   exists (u ^+ expg_invn K (val k)); first exact: groupX.

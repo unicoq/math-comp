@@ -752,11 +752,11 @@ Variable R : ringType.
 
 Lemma sumMz : forall I r (P : pred I) F,
  (\sum_(i <- r | P i) F i)%N%:~R = \sum_(i <- r | P i) ((F i)%:~R) :> R.
-Proof. by apply: big_morph=> // x y; rewrite !pmulrn -rmorphD. Qed.
+Proof. by apply: big_morph=> // x y; rewrite -rmorphD. Qed.
 
 Lemma prodMz : forall I r (P : pred I) F,
  (\prod_(i <- r | P i) F i)%N%:~R = \prod_(i <- r | P i) ((F i)%:~R) :> R.
-Proof. by apply: big_morph=> // x y; rewrite !pmulrn PoszM -rmorphM. Qed.
+Proof. by apply: big_morph=> // x y; rewrite PoszM -rmorphM. Qed.
 
 End ZintBigMorphism.
 

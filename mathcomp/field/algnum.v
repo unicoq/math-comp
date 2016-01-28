@@ -354,7 +354,7 @@ Lemma extend_algC_subfield_aut (Qs : fieldExtType rat)
 Proof.
 pose numF_inj (Qr : fieldExtType rat) := {rmorphism Qr -> algC}.
 pose subAut := {Qr : _ & numF_inj Qr * {lrmorphism Qr -> Qr}}%type.
-pose SubAut := existS _ _ (_, _) : subAut.
+pose SubAut := existS (fun x=>(numF_inj x * _)%type) _ (_, _) : subAut.
 pose Sdom (mu : subAut) := projS1 mu.
 pose Sinj (mu : subAut) : {rmorphism Sdom mu -> algC} := (projS2 mu).1.
 pose Saut (mu : subAut) : {rmorphism Sdom mu -> Sdom mu} := (projS2 mu).2.

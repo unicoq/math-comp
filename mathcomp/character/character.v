@@ -425,7 +425,7 @@ Proof. by apply/cfun_inP=> x Gx; rewrite !cfunE Gx mxtrace_block. Qed.
 Lemma cfRepr_dsum I r (P : pred I) rG :
   cfRepr (\big[dadd_grepr/grepr0]_(i <- r | P i) rG i)
     = \sum_(i <- r | P i) cfRepr (rG i).
-Proof. exact: (big_morph _ cfRepr_dadd cfRepr0). Qed.
+Proof. exact: (big_morph (fun repr => @cfRepr _ (mx_repr_of_repr repr)) cfRepr_dadd cfRepr0). Qed.
 
 Lemma cfRepr_muln rG k : cfRepr (muln_grepr rG k) = cfRepr rG *+ k.
 Proof. by rewrite cfRepr_dsum /= sumr_const card_ord. Qed.
@@ -2113,7 +2113,7 @@ Lemma cfBigdprodi_charE i (phi : 'CF(A i)) :
   P i -> (cfBigdprodi defG phi \is a character) = (phi \is a character).
 Proof. by move=> Pi; rewrite cfDprodl_char Pi cfRes_id. Qed.
 
-Lemma cfBigdprod_char phi :
+Lemma cfBigdprod_char (phi : forall i, 'CF (A i)) :
     (forall i, P i -> phi i \is a character) ->
   cfBigdprod defG phi \is a character.
 Proof.
@@ -2128,7 +2128,7 @@ Lemma cfBigdprodi_lin_charE i (phi : 'CF(A i)) :
   P i -> (cfBigdprodi defG phi \is a linear_char) = (phi \is a linear_char).
 Proof. by move=> Pi; rewrite qualifE cfBigdprodi_charE // cfBigdprodi1. Qed.
 
-Lemma cfBigdprod_lin_char phi :
+Lemma cfBigdprod_lin_char (phi : forall i, 'CF (A i)) :
     (forall i, P i -> phi i \is a linear_char) ->
   cfBigdprod defG phi \is a linear_char.
 Proof.
@@ -2146,7 +2146,7 @@ move=> Nchi; rewrite irrEchar cfBigdprod_char => [|i /Nchi/irrWchar] //=.
 by rewrite cfdot_bigdprod big1 // => i /Nchi/irrWnorm.
 Qed.
 
-Lemma cfBigdprod_eq1 phi :
+Lemma cfBigdprod_eq1 (phi : forall i, 'CF (A i)) :
     (forall i, P i -> phi i \is a character) ->
   (cfBigdprod defG phi == 1) = [forall (i | P i), phi i == 1].
 Proof.
@@ -2171,7 +2171,7 @@ rewrite (lin_char_prod Lchi) ?cfBigdprodE // => [|i Pi]; last first.
 by apply/eq_bigr=> i Pi; rewrite cfResE ?sAG ?Ax.
 Qed.
 
-Lemma cfBigdprodKlin phi :
+Lemma cfBigdprodKlin (phi : forall i, 'CF (A i)) :
   (forall i, P i -> phi i \is a linear_char) ->
   forall i, P i -> 'Res (cfBigdprod defG phi) = phi i.
 Proof.
@@ -2180,7 +2180,7 @@ have [_ <-] := cfBigdprodK (lin_char_neq0 Lpsi (group1 G)) Pi.
 by rewrite !lin_char1 ?Lphi // divr1 scale1r.
 Qed.
 
-Lemma cfBigdprodKabelian Iphi (phi := fun i => 'chi_(Iphi i)) :
+Lemma cfBigdprodKabelian Iphi (phi : forall i, 'CF (A i) := fun i => 'chi_(Iphi i)) :
   abelian G -> forall i, P i -> 'Res (cfBigdprod defG phi) = 'chi_(Iphi i).
 Proof.
 move=> /(abelianS _) cGG.
